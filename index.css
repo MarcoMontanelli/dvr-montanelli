@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tailwind utility classes used here are just examples; adjust as needed */
+.toggle-checkbox:checked {
+    background-color: #4B5563; /* darker color for dark mode */
+  }
+  .toggle-label {
+    background-color: #D1D5DB; /* lighter color for light mode */
+  }
