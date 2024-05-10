@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import './App.css';
+import Navbar from './Nav';
 import DarkModeToggle from './DarkModeToggle'; // Make sure this component is correctly imported
 
 const Dati = () => {
@@ -30,8 +31,9 @@ const Dati = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-200 dark:bg-gray-900 p-4">
-            <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+        <>
+            <Navbar />
+            <div className="min-h-screen bg-gray-200 dark:bg-gray-900 p-4">
             <motion.h1
                 className="text-xl md:text-4xl font-extrabold text-center mb-4 text-gray-800 dark:text-gray-300"
                 initial={{ y: -20, opacity: 0 }}
@@ -76,6 +78,8 @@ const Dati = () => {
                 </div>
             </motion.div>
         </div>
+        </>
+        
     );
 }
 
