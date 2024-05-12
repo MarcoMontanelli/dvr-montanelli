@@ -7,7 +7,18 @@ import DarkModeToggle from './DarkModeToggle';
 import Navbar from './Nav';
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-
+  const [result, setResult] = useState(null);
+  const costanti = [[30, 20], [20, 15]];
+  const altezze = [0.78, 0.85, 0.93, 1.00, 0.93, 0.85, 0.78, 0.00];
+  const dislocazioni = [1.00, 0.97, 0.93, 0.91, 0.88, 0.87, 0.85, 0.00];
+  const distanze = [1.00, 0.83, 0.63, 0.50, 0.45, 0.42, 0.00];
+  const angoli = [1.00, 0.90, 0.81, 0.71, 0.62, 0.57, 0.00];
+  const prese = [1.00, 0.90];
+  const frequenze = [
+    [1.00, 0.94, 0.84, 0.75, 0.52, 0.37, 0.00],
+    [0.95, 0.88, 0.72, 0.50, 0.30, 0.21, 0.00],
+    [0.85, 0.75, 0.45, 0.27, 0.15, 0.00, 0.00]
+  ];
   useEffect(() => {
     document.body.className = darkMode ? 'dark' : '';
   }, [darkMode]);
@@ -22,7 +33,7 @@ function App() {
     distanza: "25",
     angolo: "0",
     frequenza: "0.20",
-    
+
   });
 
   const handleToggleChange = (group, selectedValue) => {
@@ -45,17 +56,17 @@ function App() {
   const handleChangePeso = (e) => {
     const input = e.target.value;
     if (input === "" || (/^\d{1,2}$/.test(input))) {
-        const newPeso = parseInt(input, 10);
-        setValues(prev => ({ ...prev, peso: isNaN(newPeso) ? "" : newPeso }));
+      const newPeso = parseInt(input, 10);
+      setValues(prev => ({ ...prev, peso: isNaN(newPeso) ? "" : newPeso }));
     } else if (input.length > 2) {
-        alert("non puoi inserire un numero con più di due cifre!")
-        e.target.value = values.peso;  // This resets the input to the last valid value
+      alert("non puoi inserire un numero con più di due cifre!")
+      e.target.value = values.peso;  // This resets the input to the last valid value
     }
     else if (input.value == 99) {
       alert("non puoi inserire un numero così alto!")
       e.target.value = values.peso;  // This resets the input to the last valid value
-  }
-};
+    }
+  };
 
   const validateForm = () => {
     console.log("ok");
@@ -65,10 +76,56 @@ function App() {
   const handleSubmit = () => {
     if (validateForm()) {
       console.log("All data is valid, calculating...");
+      const etaIndex = values.eta === ">18" ? 0 : 1; // Assuming values.eta directly holds the selected value
+      const sessoIndex = values.sesso === "Maschio" ? 0 : 1;
+      const costante = costanti[etaIndex][sessoIndex];
+      const altezzaIndex = parseInt(values.altezza);
+      const dislocazioneIndex = parseInt(values.dislocazione);
+      const distanzaIndex = parseInt(values.distanza);
+      const angoloIndex = parseInt(values.angolo);
+      const presaIndex = values.presa === "Buono" ? 0 : 1;
+      const frequenzaValue = parseFloat(values.frequenza);
+      const durataIndex = values.durata === "CONTINUO (1 ora)" ? 0 : values.durata === "CONTINUO (1-2 ore)" ? 1 : 2;
+  
+      const altezza = altezze[altezzaIndex];
+      const dislocazione = dislocazioni[dislocazioneIndex];
+      const distanza = distanze[distanzaIndex];
+      const angolo = angoli[angoloIndex];
+      const presa = prese[presaIndex];
+      const relazione = frequenze[durataIndex][Math.floor(frequenzaValue * 10)]; // Make sure frequency is calculated correctly
+  
+      const peso = parseInt(values.peso, 10);
+      if (isNaN(peso)) {
+        alert("Invalid weight");
+        return;
+      }
+  
+      const limite = costante * altezza * dislocazione * distanza * angolo * presa * relazione;
+      const indiceEsposizione = peso / limite;
+  
+      console.log("Indice di Esposizione:", indiceEsposizione.toFixed(2));
+  
+      const queryParams = new URLSearchParams({
+        eta: etaIndex,
+        sesso: sessoIndex,
+        altezza,
+        dislocazione,
+        distanza,
+        angolo,
+        presa: presa ? 'Buono' : 'Scarso',
+        frequenza: frequenzaValue,
+        durata: durataIndex,
+        peso,
+        indice_esposizione: isNaN(indiceEsposizione) ? 'Error in calculation' : indiceEsposizione.toFixed(2)
+      }).toString();
+  
+      window.location.href = `dati.html?${queryParams}`;
     } else {
       alert("Please make sure all fields are filled correctly and that weight is greater than zero.");
     }
   };
+  
+
 
   const cardVariants = {
     hidden: { x: '100vw', opacity: 0 },
@@ -252,6 +309,12 @@ function App() {
           >
             Calcola
           </motion.button>
+          {result && (
+            <div>
+              <h2>Calculation Result</h2>
+              <p>Indice di Esposizione: {result}</p>
+            </div>
+          )}
         </motion.div>
       </div>
     </div>
