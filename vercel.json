@@ -1,0 +1,9 @@
+{
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/index.html" }
+    ],
+    "redirects": [
+      { "source": "/dati", "destination": "/dati.html", "permanent": true }
+    ]
+  }
+  
