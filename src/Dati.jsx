@@ -102,7 +102,7 @@ const Dati = () => {
                 >
                     Preview dei dati risultanti
                 </motion.h1>
-                <motion.div className="max-w-4xl mx-auto"
+                <motion.div className="w-full mx-auto"
                     variants={cardVariants}
                     initial="hidden"
                     animate="visible"

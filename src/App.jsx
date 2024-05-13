@@ -165,6 +165,7 @@ function App() {
           <div className="grid gap-4">
             <div>
               <div className="mb-2 font-bold  text-gray-600 dark:text-gray-300">Età</div>
+              
               <div className="flex space-x-4">
                 <ToggleSwitch label=">18" checked={values.eta[">18"]} onChange={() => handleToggleChange('eta', '>18')} id="eta1" />
                 <ToggleSwitch label="15-18" checked={values.eta["15-18"]} onChange={() => handleToggleChange('eta', '15-18')} id="eta2" />
