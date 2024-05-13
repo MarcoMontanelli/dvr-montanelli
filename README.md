@@ -27,4 +27,5 @@ Assicurati di avere installato Node.js (versione 14 o successiva) e npm (version
    npm install
    npm install vite
    npm run dev
-# Link hosting (futuro)
+# Link hosting (devo sistemare routing prima)
+https://dvr-montanelli.vercel.app/ 
