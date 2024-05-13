@@ -5,7 +5,7 @@ import 'jspdf-autotable';
 import './App.css';
 import Navbar from './Nav';
 import DarkModeToggle from './DarkModeToggle';
-
+import Footer from './Footer';
 const Dati = () => {
     const [darkMode, setDarkMode] = useState(false);
 
@@ -15,24 +15,34 @@ const Dati = () => {
 
     // Parse URL search parameters
     const searchParams = new URLSearchParams(window.location.search);
+    const formatSesso = (sesso) => {
+        switch(sesso) {
+            case '0':
+                return 'Maschio';
+            case '1':
+                return 'Femmina';
+            default:
+                return 'N/A'; // Default case when sesso is not 0 or 1
+        }
+    };
 
     const fields = [
-        { voce: 'Età', dato: searchParams.get('eta') || '18+' },
-        { voce: 'Sesso', dato: searchParams.get('sesso') || 'Maschio' },
-        { voce: 'Altezza da terra', dato: searchParams.get('altezza') || '50 cm' },
-        { voce: 'Dislocazione verticale', dato: searchParams.get('dislocazione') || '30 cm' },
-        { voce: 'Distanza orizzontale', dato: searchParams.get('distanza') || '40 cm' },
-        { voce: 'Angolo di asimmetria', dato: searchParams.get('angolo') || '60°' },
-        { voce: 'Giudizio della presa', dato: searchParams.get('presa') || 'Buono' },
-        { voce: 'Frequenza dei gesti', dato: searchParams.get('frequenza') || '0.20' },
-        { voce: 'Durata', dato: searchParams.get('durata') || 'CONTINUO (1 ora)' },
-        { voce: 'Peso sollevato', dato: searchParams.get('peso') || '15 kg' },
-        { voce: 'Indice di esposizione', dato: searchParams.get('indice') || '0.1' }
+        { voce: 'Età', dato: searchParams.get('eta') },
+        { voce: 'Sesso', dato: formatSesso(searchParams.get('sesso')) },
+        { voce: 'Altezza da terra', dato: searchParams.get('altezza')  },
+        { voce: 'Dislocazione verticale', dato: searchParams.get('dislocazione') },
+        { voce: 'Distanza orizzontale', dato: searchParams.get('distanza')  },
+        { voce: 'Angolo di asimmetria', dato: searchParams.get('angolo')  },
+        { voce: 'Giudizio della presa', dato: searchParams.get('presa')  },
+        { voce: 'Frequenza dei gesti', dato: searchParams.get('frequenza')  },
+        { voce: 'Durata', dato: searchParams.get('durata')  },
+        { voce: 'Peso sollevato', dato: searchParams.get('peso')  },
+        { voce: 'Indice di esposizione', dato: searchParams.get('indice_esposizione') }
     ];
 
     const tableData = [
         ["Età", searchParams.get("eta") || "N/A"],
-        ["Sesso", searchParams.get("sesso") || "N/A"],
+        ["Sesso", formatSesso(searchParams.get('sesso')) || "N/A"],
         ["Altezza (cm)", searchParams.get("altezza") || "N/A"],
         ["Dislocazione (cm)", searchParams.get("dislocazione") || "N/A"],
         ["Distanza (cm)", searchParams.get("distanza") || "N/A"],
@@ -41,7 +51,7 @@ const Dati = () => {
         ["Frequenza (atti al minuto)", searchParams.get("frequenza") || "N/A"],
         ["Durata", searchParams.get("durata") || "N/A"],
         ["Peso (kg)", searchParams.get("peso") || "N/A"],
-        ["Indice di Esposizione", searchParams.get("indice") || "N/A"]
+        ["Indice di Esposizione", searchParams.get("indice_esposizione") || "N/A"]
     ];
 
     const isDarkMode = document.body.classList.contains('dark');
@@ -131,6 +141,7 @@ const Dati = () => {
                     </div>
                 </motion.div>
             </div>
+            <Footer />
         </>
 
     );

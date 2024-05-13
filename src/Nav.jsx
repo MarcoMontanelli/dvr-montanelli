@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import DarkModeToggle from './DarkModeToggle';  // Assuming the toggle component is in the same project directory
+import DarkModeToggle from './DarkModeToggle';  
 import ToggleSwitch from './ToggleSwitch';
 const Navbar = () => {
     const [darkMode, setDarkMode] = useState(false);
