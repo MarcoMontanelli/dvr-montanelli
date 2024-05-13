@@ -23,6 +23,7 @@ Assicurati di avere installato Node.js (versione 14 o successiva) e npm (version
    git clone https://github.com/tuo-username/dvr-calculator.git
    cd dvr-calculator
 2. Installa le dipendenze:
+   ```bash
    npm install
    npm install vite
    npm run dev
