@@ -27,3 +27,4 @@ Assicurati di avere installato Node.js (versione 14 o successiva) e npm (version
    npm install
    npm install vite
    npm run dev
+# Link hosting (futuro)
