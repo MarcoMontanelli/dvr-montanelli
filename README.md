@@ -1,8 +1,30 @@
-# React + Vite
+# DVR MONTANELLI
+Questo progetto è un'applicazione web per calcolare il DVR (Documento di Valutazione dei Rischi), sviluppata utilizzando React e Vite.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descrizione
 
-Currently, two official plugins are available:
+L'applicazione permette agli utenti di inserire vari parametri relativi ai rischi sul luogo di lavoro e genera un documento di valutazione dei rischi basato su questi dati.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Caratteristiche
+
+- Interfaccia utente intuitiva e reattiva
+- Inserimento dati semplificato per vari tipi di rischi
+- Generazione automatica del DVR
+- Salvataggio e caricamento dei documenti valutati
+
+## Requisiti
+
+Assicurati di avere installato Node.js (versione 14 o successiva) e npm (versione 6 o successiva).
+
+## Installazione
+
+1. Clona la repository:
+   ```bash
+   git clone https://github.com/tuo-username/dvr-calculator.git
+   cd dvr-calculator
+2. Installa le dipendenze:
+   ```bash
+   npm install
+   npm install vite
+   npm run dev
+# Link hosting (futuro)
