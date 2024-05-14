@@ -6,64 +6,64 @@ import Footer from './Footer';
 
 const Formt = () => {
     const [darkMode, setDarkMode] = useState(false);
-
-
-    var costanti = [[30, 20], [20, 15]];
-    var altezze = [0.78, 0.85, 0.93, 1.00, 0.93, 0.85, 0.78, 0.00];
-    var dislocazioni = [1.00, 0.97, 0.93, 0.91, 0.88, 0.87, 0.85, 0.00];
-    var distanze = [1.00, 0.83, 0.63, 0.50, 0.45, 0.42, 0.00];
-    var angoli = [1.00, 0.90, 0.81, 0.71, 0.62, 0.57, 0.00];
-    var prese = [1.00, 0.90];
-    var frequenze = [[1.00, 0.94, 0.84, 0.75, 0.52, 0.37, 0.00],
-    [0.95, 0.88, 0.72, 0.50, 0.30, 0.21, 0.00],
-    [0.85, 0.75, 0.45, 0.27, 0.15, 0.00, 0.00]];
-
-
     const formRef = useRef(null);  // Use refs for direct form access
+
+    const costanti = [[30, 20], [20, 15]];
+    const altezze = [0.78, 0.85, 0.93, 1.00, 0.93, 0.85, 0.78, 0.00];
+    const dislocazioni = [1.00, 0.97, 0.93, 0.91, 0.88, 0.87, 0.85, 0.00];
+    const distanze = [1.00, 0.83, 0.63, 0.50, 0.45, 0.42, 0.00];
+    const angoli = [1.00, 0.90, 0.81, 0.71, 0.62, 0.57, 0.00];
+    const prese = [1.00, 0.90];
+    const frequenze = [
+        [1.00, 0.94, 0.84, 0.75, 0.52, 0.37, 0.00],
+        [0.95, 0.88, 0.72, 0.50, 0.30, 0.21, 0.00],
+        [0.85, 0.75, 0.45, 0.27, 0.15, 0.00, 0.00]
+    ];
 
     const calcola = (event) => {
         event.preventDefault();  // Prevent default form submission behavior
         const form = formRef.current;
 
         // Accessing values directly from the form elements
-        const eta = form.elements['eta'].value;
-        const sesso = form.elements['sesso'].value;
+        const eta = parseInt(form.elements['eta'].value);
+        const sesso = parseInt(form.elements['sesso'].value);
         const altezzaIndex = form.elements['altezza'].selectedIndex;
         const dislocazioneIndex = form.elements['dislocazione'].selectedIndex;
         const distanzaIndex = form.elements['distanza'].selectedIndex;
         const angoloIndex = form.elements['angolo'].selectedIndex;
-        const presa = form.elements['presa'].value;
+        const presaIndex = parseInt(form.elements['presa'].value);
         const frequenzaIndex = form.elements['frequenza'].selectedIndex;
-        const durata = form.elements['durata'].value;
-        const peso = form.elements['peso'].value;
+        const durata = parseInt(form.elements['durata'].value);
+        const peso = parseFloat(form.elements['peso'].value);
 
-        // Constants and other arrays as per your setup
-        const costanti = [[30, 20], [20, 15]];
-        const altezze = [0.78, 0.85, 0.93, 1.00, 0.93, 0.85, 0.78, 0.00];
-        const dislocazioni = [1.00, 0.97, 0.93, 0.91, 0.88, 0.87, 0.85, 0.00];
-        const distanze = [1.00, 0.83, 0.63, 0.50, 0.45, 0.42, 0.00];
-        const angoli = [1.00, 0.90, 0.81, 0.71, 0.62, 0.57, 0.00];
-        const prese = [1.00, 0.90];
-        const frequenze = [
-            [1.00, 0.94, 0.84, 0.75, 0.52, 0.37, 0.00],
-            [0.95, 0.88, 0.72, 0.50, 0.30, 0.21, 0.00],
-            [0.85, 0.75, 0.45, 0.27, 0.15, 0.00, 0.00]
-        ];
+        // Get the labels/text for each selected option
+        const etaText = form.querySelector('input[name="eta"]:checked + span').textContent;
+        const sessoText = form.querySelector('input[name="sesso"]:checked + span').textContent;
+        const altezzaText = form.elements['altezza'].options[altezzaIndex].text;
+        const dislocazioneText = form.elements['dislocazione'].options[dislocazioneIndex].text;
+        const distanzaText = form.elements['distanza'].options[distanzaIndex].text;
+        const angoloText = form.elements['angolo'].options[angoloIndex].text;
+        const presaText = form.querySelector('input[name="presa"]:checked + span').textContent;
+        const frequenzaText = form.elements['frequenza'].options[frequenzaIndex].text;
+        const durataText = form.querySelector('input[name="durata"]:checked + span').textContent;
 
         // Calculation
-        const costante = costanti[eta][sesso];
+        const costante = (eta > 18) ? costanti[0][sesso] : costanti[1][sesso];
         const altezza = altezze[altezzaIndex];
         const dislocazione = dislocazioni[dislocazioneIndex];
         const distanza = distanze[distanzaIndex];
         const angolo = angoli[angoloIndex];
+        const presa = prese[presaIndex];
         const relazione = frequenze[durata][frequenzaIndex];
 
-        const limite = costante * altezza * dislocazione * distanza * angolo * prese[presa] * relazione;
+        const limite = costante * altezza * dislocazione * distanza * angolo * presa * relazione;
         const indiceEsposizione = peso / limite;
 
         // Building URL query parameters
         const queryParams = new URLSearchParams({
-            eta, sesso, altezza, dislocazione, distanza, angolo, presa, frequenza: frequenzaIndex, durata, peso, indice_esposizione: indiceEsposizione.toFixed(2)
+            eta: etaText, sesso: sessoText, altezza: altezzaText, dislocazione: dislocazioneText,
+            distanza: distanzaText, angolo: angoloText, presa: presaText, frequenza: frequenzaText,
+            durata: durataText, peso, indice_esposizione: indiceEsposizione.toFixed(2)
         }).toString();
 
         // Redirecting to another page with parameters

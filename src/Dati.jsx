@@ -15,20 +15,11 @@ const Dati = () => {
 
     // Parse URL search parameters
     const searchParams = new URLSearchParams(window.location.search);
-    const formatSesso = (sesso) => {
-        switch(sesso) {
-            case '0':
-                return 'Maschio';
-            case '1':
-                return 'Femmina';
-            default:
-                return 'N/A'; // Default case when sesso is not 0 or 1
-        }
-    };
+    
 
     const fields = [
         { voce: 'Età', dato: searchParams.get('eta') },
-        { voce: 'Sesso', dato: formatSesso(searchParams.get('sesso')) },
+        { voce: 'Sesso', dato: searchParams.get('sesso') },
         { voce: 'Altezza da terra', dato: searchParams.get('altezza')  },
         { voce: 'Dislocazione verticale', dato: searchParams.get('dislocazione') },
         { voce: 'Distanza orizzontale', dato: searchParams.get('distanza')  },
@@ -42,7 +33,7 @@ const Dati = () => {
 
     const tableData = [
         ["Età", searchParams.get("eta") || "N/A"],
-        ["Sesso", formatSesso(searchParams.get('sesso')) || "N/A"],
+        ["Sesso", searchParams.get('sesso') || "N/A"],
         ["Altezza (cm)", searchParams.get("altezza") || "N/A"],
         ["Dislocazione (cm)", searchParams.get("dislocazione") || "N/A"],
         ["Distanza (cm)", searchParams.get("distanza") || "N/A"],
